@@ -31,7 +31,7 @@ jobs:
       - name: Create a team distribution ZIP
         shell: pwsh
         run: |
-          Compress-Archive -Path "dist\Universal File Organizer\*" -DestinationPath "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip"
+          Compress-Archive -Path "dist/Universal File Organizer/*" -DestinationPath "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip"
 
       - name: Install Inno Setup
         shell: pwsh
@@ -45,4 +45,9 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${{ github.event.release.tag_name }}" "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip" "dist\Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows_Setup.exe" --clobber
+        run: |
+          # Automatically strip the leading 'v' from the tag name if it exists (e.g., v1.0.1 -> 1.0.1)
+          $CleanVersion = "${{ github.event.release.tag_name }}".TrimStart('v')
+          
+          # Run the upload targeting the exact installer filename structure
+          gh release upload "${{ github.event.release.tag_name }}" "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip" "dist/Universal_File_Organizer_${CleanVersion}_Windows_Setup.exe" --clobber
