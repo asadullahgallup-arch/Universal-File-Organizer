@@ -46,8 +46,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Automatically strip the leading 'v' from the tag name if it exists (e.g., v1.0.1 -> 1.0.1)
-          $CleanVersion = "${{ github.event.release.tag_name }}".TrimStart('v')
+          # 1. Upload the team ZIP file safely
+          gh release upload "${{ github.event.release.tag_name }}" "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip" --clobber
           
-          # Run the upload targeting the exact installer filename structure
-          gh release upload "${{ github.event.release.tag_name }}" "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip" "dist/Universal_File_Organizer_${CleanVersion}_Windows_Setup.exe" --clobber
+          # 2. Dynamically search inside the project folder to locate the built installer exe
+          $InstallerFile = Get-ChildItem -Path . -Filter "*Setup*.exe" -Recurse | Select-Object -First 1
+          
+          if ($InstallerFile) {
+              Write-Host "Found installer at: $($InstallerFile.FullName)"
+              # Upload the dynamically found installer file path
+              gh release upload "${{ github.event.release.tag_name }}" $InstallerFile.FullName --clobber
+          } else {
+              Write-Error "Could not find any compiled setup file ending with Setup.exe!"
+              exit 1
+          }
