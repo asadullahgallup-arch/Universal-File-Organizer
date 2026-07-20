@@ -6,6 +6,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write      # MANDATORY permission required for generating build attestations
+  attestations: write  # MANDATORY permission required for writing build attestations
 
 jobs:
   build-and-upload:
@@ -36,19 +38,30 @@ jobs:
         shell: pwsh
         run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DMyAppVersion="${{ github.event.release.tag_name }}" installer.iss'
 
+      - name: Locate compiled installer path
+        id: find-installer
+        shell: pwsh
+        run: |
+          # Dynamically search inside the project folder to locate the built installer exe
+          $InstallerFile = Get-ChildItem -Path . -Filter "*Setup*.exe" -Recurse | Select-Object -First 1
+          if ($InstallerFile) {
+              Write-Host "Found installer at: $($InstallerFile.FullName)"
+              # Save the file path to environment variables for subsequent steps
+              echo "INSTALLER_PATH=$($InstallerFile.FullName)" >> $env:GITHUB_ENV
+          } else {
+              Write-Error "Could not find any compiled setup file ending with Setup.exe!"
+              exit 1
+          }
+
+      - name: Attest Build Provenance
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: '${{ env.INSTALLER_PATH }}'
+
       - name: Attach the Windows app to this release
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Dynamically search inside the project folder to locate the built installer exe
-          $InstallerFile = Get-ChildItem -Path . -Filter "*Setup*.exe" -Recurse | Select-Object -First 1
-          
-          if ($InstallerFile) {
-              Write-Host "Found installer at: $($InstallerFile.FullName)"
-              # Upload ONLY the installation wizard file
-              gh release upload "${{ github.event.release.tag_name }}" $InstallerFile.FullName --clobber
-          } else {
-              Write-Error "Could not find any compiled setup file ending with Setup.exe!"
-              exit 1
-          }
+          # Upload only the verified, attested installation wizard file
+          gh release upload "${{ github.event.release.tag_name }}" "${{ env.INSTALLER_PATH }}" --clobber
