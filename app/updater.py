@@ -26,7 +26,14 @@ class UpdateChecker:
                 return {"available": False, "reason": "No published GitHub Release is available yet."}
             raise RuntimeError(f"GitHub returned HTTP {error.code}.") from error
         except URLError as error:
-            raise RuntimeError("Could not connect to GitHub. Check your internet connection.") from error
+            raise RuntimeError(
+                f"Could not connect to GitHub.\n\nReason: {repr(error.reason)}"
+            ) from error
+
+        except Exception as error:
+            raise RuntimeError(
+                f"{type(error).__name__}: {error}"
+            ) from error
 
         latest_version = release.get("tag_name", "").lstrip("vV")
         if not latest_version:
