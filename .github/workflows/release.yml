@@ -28,11 +28,6 @@ jobs:
       - name: Build the application
         run: pyinstaller --noconfirm "Universal File Organizer.spec"
 
-      - name: Create a team distribution ZIP
-        shell: pwsh
-        run: |
-          Compress-Archive -Path "dist/Universal File Organizer/*" -DestinationPath "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip"
-
       - name: Install Inno Setup
         shell: pwsh
         run: choco install innosetup -y --no-progress
@@ -46,15 +41,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # 1. Upload the team ZIP file safely
-          gh release upload "${{ github.event.release.tag_name }}" "Universal_File_Organizer_${{ github.event.release.tag_name }}_Windows.zip" --clobber
-          
-          # 2. Dynamically search inside the project folder to locate the built installer exe
+          # Dynamically search inside the project folder to locate the built installer exe
           $InstallerFile = Get-ChildItem -Path . -Filter "*Setup*.exe" -Recurse | Select-Object -First 1
           
           if ($InstallerFile) {
               Write-Host "Found installer at: $($InstallerFile.FullName)"
-              # Upload the dynamically found installer file path
+              # Upload ONLY the installation wizard file
               gh release upload "${{ github.event.release.tag_name }}" $InstallerFile.FullName --clobber
           } else {
               Write-Error "Could not find any compiled setup file ending with Setup.exe!"
