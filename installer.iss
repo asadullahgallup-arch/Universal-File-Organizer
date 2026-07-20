@@ -1,5 +1,5 @@
 #define MyAppName "Universal File Organizer"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.0.3"
 #define MyAppPublisher "MA Software"
 #define MyAppExeName "Universal File Organizer.exe"
 
