@@ -1,8 +1,16 @@
 """GitHub Release update checks for the desktop application."""
 
 import json
+import os
+import sys
+import certifi # type: ignore
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+
+
+# Force the requests library to use the bundled certificate authority file
+os.environ["REQUESTS_CA_BUNDLE"] = certifi.where()
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 
 REPOSITORY = "asadullahgallup-arch/Universal-File-Organizer"
