@@ -3,11 +3,11 @@
 import os
 import sys
 
-# FIXED: Replaced SPEC_FILE_NAME with a universally compatible absolute path definition
-SPEC_DIR = os.path.dirname(os.path.abspath(__file__))
+# FIXED: Uses the current working directory to completely bypass PyInstaller sandbox restrictions
+SPEC_DIR = os.getcwd()
 
 a = Analysis(
-    ['app/main_launcher.py'],  # Entry point pointing to your UI hub launcher
+    ['app/main_launcher.py'],  # Target your true UI hub launcher entry point
     pathex=[SPEC_DIR],
     binaries=[],
     datas=[],
@@ -19,9 +19,9 @@ a = Analysis(
         'tkinter',
         'tkinter.filedialog',
         'tkinter.messagebox',
-        'organizer',            
-        'common',               
-        'separator'             
+        'organizer',            # Bundles your original toolset package
+        'common',               # Bundles common updaters/handlers
+        'separator'             # Bundles your spreadsheet categorizer engine
     ],
     hookspath=[],
     hooksconfig={},
@@ -45,7 +45,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,                    # Hides the console window behind your modern GUI
+    console=False,                    # Keeps the command window hidden behind your GUI
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
