@@ -1,8 +1,14 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+import os
+import sys
+
+# FIXED: Replaced SPEC_FILE_NAME with a universally compatible absolute path definition
+SPEC_DIR = os.path.dirname(os.path.abspath(__file__))
+
 a = Analysis(
-    ['app/main_launcher.py'],  # CRITICAL FIX: Forces the entry point to your new UI hub launcher
-    pathex=[],
+    ['app/main_launcher.py'],  # Entry point pointing to your UI hub launcher
+    pathex=[SPEC_DIR],
     binaries=[],
     datas=[],
     hiddenimports=[
@@ -13,9 +19,9 @@ a = Analysis(
         'tkinter',
         'tkinter.filedialog',
         'tkinter.messagebox',
-        'organizer',            # Bundles your original layout engine
-        'common',               # Bundles configurations, updaters, and handlers
-        'separator'             # Bundles your brand-new dynamic spreadsheet engine
+        'organizer',            
+        'common',               
+        'separator'             
     ],
     hookspath=[],
     hooksconfig={},
@@ -39,7 +45,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=False,                    # Hides the ugly console window behind your modern GUI
+    console=False,                    # Hides the console window behind your modern GUI
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
