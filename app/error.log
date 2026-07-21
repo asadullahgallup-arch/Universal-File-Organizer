@@ -1,0 +1,13 @@
+2026-07-21 01:38:37,718 - ERROR - Failed to start Organizer
+Traceback (most recent call last):
+  File "F:\Projects\Universal_File_Organizer v1.0.1\app\main_launcher.py", line 119, in launch_file_organizer_interface
+    self.organizer_app = UniversalFileOrganizer(self.root)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\Projects\Universal_File_Organizer v1.0.1\app\organizer\gui.py", line 115, in __init__
+    self.create_tabs()
+  File "F:\Projects\Universal_File_Organizer v1.0.1\app\organizer\gui.py", line 190, in create_tabs
+    self.create_project_tab()
+  File "F:\Projects\Universal_File_Organizer v1.0.1\app\organizer\gui.py", line 231, in create_project_tab
+    command=self.save_project).pack(side="left", padx=15)
+            ^^^^^^^^^^^^^^^^^
+AttributeError: 'UniversalFileOrganizer' object has no attribute 'save_project'
