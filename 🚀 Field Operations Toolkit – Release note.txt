@@ -1,0 +1,27 @@
+## 🚀 Field Operations Toolkit – v1.0.6 (Hub Expansion Update)
+Welcome to the new era of your field data automation workflow! This update officially transitions the project from a single‑purpose file organizer into **Field Operations Toolkit**—a unified, high‑performance desktop hub specifically engineered to accelerate and streamline data‑driven field operations.
+
+### 🌟 What's New & Upgraded
+#### 1. Central Launcher Dashboard 🎛️
+* Introduced a sleek, unified graphical interface using **CustomTkinter** that lets you choose exactly which field automation workspace tool you want to load upon launching the app.
+
+* Implemented a smooth **100ms thread animation delay** to clear background hover loops safely, permanently solving interface hand‑off crashes.
+
+#### 2. Field Data Splitter (New Feature) 📊
+* **Automated Column Discovery:** The app now automatically scans any loaded Excel or CSV dataset upon browsing and dynamically populates its headers into a secure dropdown list—removing manual typing errors.
+
+* **Custom Destination Pickers:** Added a new directory configuration path allowing you to route your split files to any dedicated workspace folder on your PC.
+
+* **Asynchronous Multi‑Threading:** The backend separation processing logic now executes on a separate worker thread. This ensures the app GUI never freezes or displays "Not Responding" screens when dividing massive field datasets.
+
+#### 3. Enterprise‑Grade Stability & Security 🔒
+* **Dynamic Import Interceptor:** Added an integrated metadata path lookup handler to guarantee legacy sub‑module paths resolve flawlessly inside standalone binaries.
+
+* **Local Error Logging:** Implemented a silent error logging system that saves any unexpected tracebacks directly into a local error.log file for quick diagnostic debugging.
+
+* **Build Provenance Attestation:** Upgraded the cloud compiling chain to integrate cryptographic build attestations, clearing security handshakes for client deployment.
+
+---
+
+### 📦 Assets Included in This Release
+* `FieldOperationsToolkit_1.0.6_Windows_Setup.exe` (Windows Installation Wizard Package)

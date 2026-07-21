@@ -1,14 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-import os
-import sys
-
-# Safely extract the absolute path of the root directory during the cloud build
-SPEC_DIR = os.path.dirname(os.path.abspath(SPEC_FILE_NAME))
-
 a = Analysis(
     ['app/main_launcher.py'],  # CRITICAL FIX: Forces the entry point to your new UI hub launcher
-    pathex=[SPEC_DIR],
+    pathex=[],
     binaries=[],
     datas=[],
     hiddenimports=[
