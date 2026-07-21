@@ -28,7 +28,32 @@ jobs:
           pip install -r requirements.txt pyinstaller
 
       - name: Build the application
-        run: pyinstaller --noconfirm "Field_Operations_Toolkit.spec"  # FIXED: Pointing to the underscore filename
+        run: pyinstaller --noconfirm "Field_Operations_Toolkit.spec"
+
+      - name: Ensure dist directory path alignment
+        shell: pwsh
+        run: |
+          # 1. Target the dist directory
+          $DistPath = "dist"
+          
+          # 2. Automatically find any compiled directory folder that PyInstaller generated
+          $FoundFolder = Get-ChildItem -Path $DistPath -Directory | Select-Object -First 1
+          
+          if ($FoundFolder) {
+              $TargetFolderName = "Field Operations Toolkit"
+              $TargetFullPath = Join-Path $DistPath $TargetFolderName
+              
+              # 3. If the folder name doesn't match the space-separated requirement, clone it safely
+              if ($FoundFolder.Name -ne $TargetFolderName) {
+                  Write-Host "Aligning folder paths: Copying '$($FoundFolder.FullName)' to '$TargetFullPath'"
+                  Copy-Item -Path $FoundFolder.FullName -Destination $TargetFullPath -Recurse -Force
+              } else {
+                  Write-Host "Folder structure already aligned perfectly."
+              }
+          } else {
+              Write-Error "PyInstaller failed to output a built folder inside the dist directory!"
+              exit 1
+          }
 
       - name: Install Inno Setup
         shell: pwsh
@@ -37,18 +62,15 @@ jobs:
       - name: Build Windows installer
         shell: pwsh
         run: |
-          # FIXED: Properly wrapped parameters in pwsh blocks to prevent space splitting errors
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DMyAppVersion="${{ github.event.release.tag_name }}" installer.iss
 
       - name: Locate compiled installer path
         id: find-installer
         shell: pwsh
         run: |
-          # Dynamically search inside the project folder to locate the built installer exe
           $InstallerFile = Get-ChildItem -Path . -Filter "*Setup*.exe" -Recurse | Select-Object -First 1
           if ($InstallerFile) {
               Write-Host "Found installer at: $($InstallerFile.FullName)"
-              # Save the file path to environment variables for subsequent steps
               echo "INSTALLER_PATH=$($InstallerFile.FullName)" >> $env:GITHUB_ENV
           } else {
               Write-Error "Could not find any compiled setup file ending with Setup.exe!"
@@ -56,7 +78,7 @@ jobs:
           }
 
       - name: Attest Build Provenance
-        uses: actions/attest-build-provenance@v2  # FIXED: Upgraded from v1 to v2 for modern environments
+        uses: actions/attest-build-provenance@v2
         with:
           subject-path: '${{ env.INSTALLER_PATH }}'
 
@@ -65,5 +87,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Upload only the verified, attested installation wizard file
           gh release upload "${{ github.event.release.tag_name }}" "${{ env.INSTALLER_PATH }}" --clobber
