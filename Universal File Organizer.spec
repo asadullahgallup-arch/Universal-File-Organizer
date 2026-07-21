@@ -21,7 +21,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='Universal File Organizer',
+    name='Field Operations Toolkit',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -42,5 +42,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='Universal File Organizer',
+    name='Field Operations Toolkit',
 )

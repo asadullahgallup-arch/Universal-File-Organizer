@@ -1,4 +1,4 @@
-# Universal File Organizer
+# Field Operations Toolkit
 
 A Windows desktop application that organizes files from an Excel worksheet in a few clicks.
 

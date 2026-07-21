@@ -35,7 +35,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='Universal File Organizer',  # Set the official application name
+    name='Field Operations Toolkit',  # Set the official application name
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

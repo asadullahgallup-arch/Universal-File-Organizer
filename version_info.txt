@@ -1,6 +1,6 @@
 # UTF-8
 #
-# Universal File Organizer Version Information
+# Field Operations Toolkit Version Information
 
 VSVersionInfo(
   ffi=FixedFileInfo(
@@ -22,7 +22,7 @@ VSVersionInfo(
           [
             StringStruct(
               u'CompanyName',
-              u'Universal File Organizer'
+              u'Field Operations Toolkit'
             ),
 
             StringStruct(
@@ -37,17 +37,17 @@ VSVersionInfo(
 
             StringStruct(
               u'InternalName',
-              u'Universal File Organizer'
+              u'Field Operations Toolkit'
             ),
 
             StringStruct(
               u'OriginalFilename',
-              u'Universal File Organizer.exe'
+              u'Field Operations Toolkit.exe'
             ),
 
             StringStruct(
               u'ProductName',
-              u'Universal File Organizer'
+              u'Field Operations Toolkit'
             ),
 
             StringStruct(
