@@ -180,21 +180,21 @@ class ApplicationHub:
         btn_organizer.pack(pady=15)
 
         btn_separator = ctk.CTkButton(main_scroll, text="📊  Launch Field Data Splitter",
-                                      width=360, height=52, font=("Segoe UI", 14, "bold"),
-                                      corner_radius=12, command=self.launch_file_separator_interface)
+                                    width=360, height=52, font=("Segoe UI", 14, "bold"),
+                                    corner_radius=12, command=self.launch_file_separator_interface)
         btn_separator.pack(pady=15)
 
         settings_btn = ctk.CTkButton(main_scroll, text="⚙ Settings", width=160, height=36,
-                                     font=("Segoe UI", 12, "bold"),
-                                     fg_color=("#E2E8F0", "#2D3748"),
-                                     text_color=("#2D3748", "#E2E8F0"),
-                                     hover_color=("#CBD5E1", "#4A5568"),
-                                     corner_radius=10,
-                                     command=self.show_settings)
+                                    font=("Segoe UI", 12, "bold"),
+                                    fg_color=("#E2E8F0", "#2D3748"),
+                                    text_color=("#2D3748", "#E2E8F0"),
+                                    hover_color=("#CBD5E1", "#4A5568"),
+                                    corner_radius=10,
+                                    command=self.show_settings)
         settings_btn.pack(pady=(20, 10))
 
-        ctk.CTkLabel(main_scroll, text="Field Operations Toolkit v1.0.2 • Secure Automation",
-                     font=("Segoe UI", 11), text_color="gray").pack(pady=20)
+        ctk.CTkLabel(main_scroll, text="Field Operations Toolkit v1.0.4 • Secure Automation",
+                    font=("Segoe UI", 11), text_color="gray").pack(pady=20)
 
     def show_settings(self):
         self.clear_window()
@@ -203,12 +203,12 @@ class ApplicationHub:
         nav_frame = ctk.CTkFrame(self.root, fg_color="transparent")
         nav_frame.pack(fill="x", padx=20, pady=15)
         ctk.CTkButton(nav_frame, text="← Return to Menu", width=130, height=32,
-                      font=("Segoe UI", 12, "bold"),
-                      fg_color=("#E2E8F0", "#2D3748"),
-                      text_color=("#2D3748", "#E2E8F0"),
-                      hover_color=("#CBD5E1", "#4A5568"),
-                      corner_radius=8,
-                      command=self.show_launcher_dashboard).pack(side="left")
+                    font=("Segoe UI", 12, "bold"),
+                    fg_color=("#E2E8F0", "#2D3748"),
+                    text_color=("#2D3748", "#E2E8F0"),
+                    hover_color=("#CBD5E1", "#4A5568"),
+                    corner_radius=8,
+                    command=self.show_launcher_dashboard).pack(side="left")
 
         ctk.CTkLabel(self.root, text="Settings", font=("Segoe UI", 20, "bold")).pack(pady=(10, 10))
 
@@ -225,22 +225,22 @@ class ApplicationHub:
 
         ctk.CTkLabel(card.content_frame, text="Color Theme", font=("Segoe UI", 12)).pack(anchor="w", padx=25)
         color_dropdown = ctk.CTkComboBox(card.content_frame, values=["blue", "green", "dark-blue"],
-                                         variable=self.color_theme, width=250)
+                                        variable=self.color_theme, width=250)
         color_dropdown.pack(fill="x", padx=25, pady=(0, 25))
         color_dropdown.set(self.color_theme.get())
 
         ctk.CTkButton(card.content_frame, text="Apply Settings", width=200, height=40,
-                      font=("Segoe UI", 13, "bold"),
-                      command=lambda: self.apply_global_settings(mode_dropdown.get(), color_dropdown.get())
-                     ).pack(pady=(10, 20))
+                    font=("Segoe UI", 13, "bold"),
+                    command=lambda: self.apply_global_settings(mode_dropdown.get(), color_dropdown.get())
+                    ).pack(pady=(10, 20))
 
         ctk.CTkFrame(card.content_frame, height=2, fg_color="#CBD5E1").pack(fill="x", padx=25, pady=(10, 5))
         ctk.CTkLabel(card.content_frame, text="🔄 Updates", font=("Segoe UI", 16, "bold")).pack(anchor="w", padx=25, pady=(10, 5))
         ctk.CTkLabel(card.content_frame, text="Check for a newer version of Field Operations Toolkit.",
-                     font=("Segoe UI", 12)).pack(anchor="w", padx=25)
+                    font=("Segoe UI", 12)).pack(anchor="w", padx=25)
         ctk.CTkButton(card.content_frame, text="Check for Updates", width=200, height=40,
-                      font=("Segoe UI", 13, "bold"),
-                      command=self.check_for_updates).pack(pady=(15, 20))
+                    font=("Segoe UI", 13, "bold"),
+                    command=self.check_for_updates).pack(pady=(15, 20))
 
     def apply_global_settings(self, mode, color):
         ctk.set_appearance_mode(mode)
@@ -268,7 +268,7 @@ class ApplicationHub:
         if result.get("available"):
             latest = result["latest_version"]
             if messagebox.askyesno("Update available",
-                                   f"Version {latest} is available. You have {APP_VERSION}.\n\nOpen download page?"):
+                                    f"Version {latest} is available. You have {APP_VERSION}.\n\nOpen download page?"):
                 if result.get("download_url"):
                     webbrowser.open(result["download_url"])
         elif manual:
@@ -302,25 +302,25 @@ class ApplicationHub:
         nav_frame = ctk.CTkFrame(self.root, fg_color="transparent")
         nav_frame.pack(fill="x", padx=20, pady=15)
         ctk.CTkButton(nav_frame, text="← Return to Menu", width=130, height=32,
-                      font=("Segoe UI", 12, "bold"),
-                      fg_color=("#E2E8F0", "#2D3748"), text_color=("#2D3748", "#E2E8F0"),
-                      hover_color=("#CBD5E1", "#4A5568"), corner_radius=8,
-                      command=self.show_launcher_dashboard).pack(side="left")
+                    font=("Segoe UI", 12, "bold"),
+                    fg_color=("#E2E8F0", "#2D3748"), text_color=("#2D3748", "#E2E8F0"),
+                    hover_color=("#CBD5E1", "#4A5568"), corner_radius=8,
+                    command=self.show_launcher_dashboard).pack(side="left")
 
         ctk.CTkLabel(self.root, text="Field Data Splitter",
-                     font=("Segoe UI", 18, "bold")).pack(pady=(5, 10))
+                    font=("Segoe UI", 18, "bold")).pack(pady=(5, 10))
 
         card_frame = BidirectionalScrollableFrame(self.root, corner_radius=14, border_width=1,
-                                                  border_color=("#E2E8F0", "#2D3748"))
+                                                border_color=("#E2E8F0", "#2D3748"))
         card_frame.pack(fill="both", expand=True, padx=40, pady=(0, 10))
 
         ctk.CTkLabel(card_frame.content_frame, text="Select Master Dataset (Excel or CSV file):",
-                     font=("Segoe UI", 12, "bold")).pack(anchor="w", padx=25, pady=(20,0))
+                    font=("Segoe UI", 12, "bold")).pack(anchor="w", padx=25, pady=(20,0))
         file_frame = ctk.CTkFrame(card_frame.content_frame, fg_color="transparent")
         file_frame.pack(fill="x", padx=25, pady=5)
 
         self.file_entry = ctk.CTkEntry(file_frame, height=35, corner_radius=8,
-                                       placeholder_text="Browse a master datasheet location...")
+                                        placeholder_text="Browse a master datasheet location...")
         self.file_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
         def browse_file():

@@ -23,6 +23,8 @@
         "Segoe",
         "skipifsilent",
         "tabview",
-        "textvariable"
+        "textvariable",
+        "xscrollcommand",
+        "yscrollcommand"
     ]
 }

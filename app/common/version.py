@@ -1,6 +1,6 @@
 APP_NAME = "Universal File Organizer"
 
-APP_VERSION = "1.0.3"
+APP_VERSION = "1.0.4"
 
 APP_BUILD = "Team Edition"
 
