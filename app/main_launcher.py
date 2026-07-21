@@ -83,7 +83,7 @@ class BidirectionalScrollableFrame(ctk.CTkFrame):
         self.h_scrollbar = ctk.CTkScrollbar(self, orientation="horizontal", command=self.canvas.xview)
 
         self.canvas.configure(yscrollcommand=self._on_vertical_scroll,
-                              xscrollcommand=self._on_horizontal_scroll)
+                            xscrollcommand=self._on_horizontal_scroll)
 
         self.content_frame = ctk.CTkFrame(self.canvas, fg_color="transparent")
         self.content_window = self.canvas.create_window((0, 0), window=self.content_frame, anchor="nw")

@@ -28,7 +28,7 @@ jobs:
           pip install -r requirements.txt pyinstaller
 
       - name: Build the application
-        run: pyinstaller --noconfirm "Universal File Organizer.spec"
+        run: pyinstaller --noconfirm "Field Operations Toolkit.spec"
 
       - name: Install Inno Setup
         shell: pwsh
