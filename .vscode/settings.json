@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "abspath",
         "asadullahgallup",
         "autodesktop",
         "autopf",
@@ -12,6 +13,7 @@
         "desktopicon",
         "filedialog",
         "flac",
+        "getcwd",
         "hiddenimports",
         "hooksconfig",
         "hookspath",
