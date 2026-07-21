@@ -1,4 +1,4 @@
-APP_NAME = "Universal File Organizer"
+APP_NAME = "Field Operations Toolkit"
 
 APP_VERSION = "1.0.4"
 

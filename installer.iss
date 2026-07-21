@@ -1,7 +1,7 @@
-#define MyAppName "Universal File Organizer"
+#define MyAppName "Field Operations Toolkit"
 #define MyAppVersion "1.0.4"
 #define MyAppPublisher "MA Software"
-#define MyAppExeName "Universal File Organizer.exe"
+#define MyAppExeName "Field Operations Toolkit.exe"
 
 [Setup]
 AppId={{B8E0F3F0-8C6B-4E84-9A72-1A2B3C4D5E6F}}

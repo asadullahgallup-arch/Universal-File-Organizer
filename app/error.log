@@ -2,7 +2,7 @@
 Traceback (most recent call last):
   File "F:\Projects\Universal_File_Organizer v1.0.1\app\main_launcher.py", line 119, in launch_file_organizer_interface
     self.organizer_app = UniversalFileOrganizer(self.root)
-                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "F:\Projects\Universal_File_Organizer v1.0.1\app\organizer\gui.py", line 115, in __init__
     self.create_tabs()
   File "F:\Projects\Universal_File_Organizer v1.0.1\app\organizer\gui.py", line 190, in create_tabs
