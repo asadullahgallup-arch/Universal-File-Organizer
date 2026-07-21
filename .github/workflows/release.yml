@@ -28,7 +28,7 @@ jobs:
           pip install -r requirements.txt pyinstaller
 
       - name: Build the application
-        run: pyinstaller --noconfirm "Field Operations Toolkit.spec"
+        run: pyinstaller --noconfirm "Field_Operations_Toolkit.spec"  # FIXED: Pointing to the underscore filename
 
       - name: Install Inno Setup
         shell: pwsh
@@ -36,7 +36,9 @@ jobs:
 
       - name: Build Windows installer
         shell: pwsh
-        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DMyAppVersion="${{ github.event.release.tag_name }}" installer.iss'
+        run: |
+          # FIXED: Properly wrapped parameters in pwsh blocks to prevent space splitting errors
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /DMyAppVersion="${{ github.event.release.tag_name }}" installer.iss
 
       - name: Locate compiled installer path
         id: find-installer
@@ -54,7 +56,7 @@ jobs:
           }
 
       - name: Attest Build Provenance
-        uses: actions/attest-build-provenance@v1
+        uses: actions/attest-build-provenance@v2  # FIXED: Upgraded from v1 to v2 for modern environments
         with:
           subject-path: '${{ env.INSTALLER_PATH }}'
 
