@@ -50,8 +50,9 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
-    exclude_binaries=True,      # Important: exclude binaries to create a folder build
+    exclude_binaries=True,
     name='Field Operations Toolkit',
+    icon='assets/app.ico',            # <-- THIS EMBEDS THE ICON INTO THE EXE
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
