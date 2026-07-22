@@ -1,5 +1,5 @@
 #define MyAppName "Field Operations Toolkit"
-#define MyAppVersion "1.0.4"
+#define MyAppVersion "1.0.5"
 #define MyAppPublisher "MA Software"
 #define MyAppExeName "Field Operations Toolkit.exe"
 

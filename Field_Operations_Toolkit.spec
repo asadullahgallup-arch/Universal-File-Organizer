@@ -52,7 +52,6 @@ exe = EXE(
     a.scripts,
     exclude_binaries=True,
     name='Field Operations Toolkit',
-    icon='assets/app.ico',            # <-- THIS EMBEDS THE ICON INTO THE EXE
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -63,6 +62,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='assets/app.ico',           # ← add this line
 )
 
 coll = COLLECT(
