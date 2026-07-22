@@ -2,10 +2,10 @@ from pathlib import Path
 
 import pandas as pd
 
-from app.indexer import FileIndexer
-from app.matcher import FileMatcher
-from app.organizer import FileOrganizer
-from app.report import ReportGenerator
+from app.organizer.indexer import FileIndexer
+from app.organizer.matcher import FileMatcher
+from app.organizer.organizer import FileOrganizer
+from app.organizer.report import ReportGenerator
 
 
 class Worker:

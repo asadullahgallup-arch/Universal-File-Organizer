@@ -10,6 +10,14 @@ import logging
 import inspect
 import webbrowser
 
+# New standard imports
+from app.organizer.gui import UniversalFileOrganizer
+from app.separator.separator import split_file_by_column, get_file_columns
+
+# Detect if the Organizer can be embedded
+org_params = list(inspect.signature(UniversalFileOrganizer.__init__).parameters.keys())
+HAS_PARENT = len(org_params)
+
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
 
@@ -47,27 +55,9 @@ class ResilientNamespaceInterceptor(MetaPathFinder):
 
 sys.meta_path.insert(0, ResilientNamespaceInterceptor())
 
-# Dynamic imports – internal class names remain unchanged
-gui_file_path = os.path.join(CURRENT_DIR, 'organizer', 'gui.py')
-gui_spec = spec_from_file_location("organizer_gui_module", gui_file_path)
-gui_module = module_from_spec(gui_spec)
-sys.modules["organizer_gui_module"] = gui_module
-gui_spec.loader.exec_module(gui_module)
-UniversalFileOrganizer = getattr(gui_module, "UniversalFileOrganizer")
 
-org_params = list(inspect.signature(UniversalFileOrganizer.__init__).parameters.keys())
-HAS_PARENT = len(org_params) >= 2
-
-separator_file_path = os.path.join(CURRENT_DIR, 'separator', 'separator.py')
-sep_spec = spec_from_file_location("separator_logic_module", separator_file_path)
-sep_module = module_from_spec(sep_spec)
-sys.modules["separator_logic_module"] = sep_module
-sep_spec.loader.exec_module(sep_module)
-split_file_by_column = getattr(sep_module, "split_file_by_column")
-get_file_columns = getattr(sep_module, "get_file_columns")
-
-from app.updater import UpdateChecker
-from app.version import APP_VERSION
+from app.common.updater import UpdateChecker
+from app.common.version import APP_VERSION, APP_BUILD
 
 
 class BidirectionalScrollableFrame(ctk.CTkFrame):
@@ -190,7 +180,9 @@ class ApplicationHub:
                                      command=self.show_settings)
         settings_btn.pack(pady=(20, 10))
 
-        ctk.CTkLabel(main_scroll, text="Field Operations Toolkit v1.0.2 • Secure Automation",
+        # Footer with dynamic version
+        ctk.CTkLabel(main_scroll,
+                     text=f"Field Operations Toolkit v{APP_VERSION} ({APP_BUILD}) • Secure Automation",
                      font=("Segoe UI", 11), text_color="gray").pack(pady=20)
 
     def show_settings(self):

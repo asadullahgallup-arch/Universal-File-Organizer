@@ -2,15 +2,17 @@
 
 import os
 import sys
+from pathlib import Path
 
-# Get the absolute path of the current directory to ensure file discovery
-SPEC_DIR = os.path.dirname(os.path.abspath(SPEC_FILE_NAME))
+spec_dir = os.path.dirname(os.path.abspath(SPEC))
 
 a = Analysis(
-    ['app/main_launcher.py'],  # Target your new unified launcher entry point
-    pathex=[SPEC_DIR],
+    ['app/main_launcher.py'],
+    pathex=[spec_dir],
     binaries=[],
-    datas=[],
+    datas=[
+        ('assets', 'assets'),
+    ],
     hiddenimports=[
         'customtkinter',
         'pandas',
@@ -18,7 +20,25 @@ a = Analysis(
         'certifi',
         'tkinter',
         'tkinter.filedialog',
-        'tkinter.messagebox'
+        'tkinter.messagebox',
+        'organizer',
+        'app.common',
+        'app.common.config',
+        'app.common.excel_handler',
+        'app.common.profile_manager',
+        'app.common.updater',
+        'app.common.version',
+        'app.organizer',
+        'app.organizer.gui',
+        'app.organizer.indexer',
+        'app.organizer.matcher',
+        'app.organizer.organizer',
+        'app.organizer.report',
+        'app.organizer.worker',
+        'app.separator',
+        'app.separator.separator',
+        'app.compare_excel',
+        'app.compare_excel.compare',
     ],
     hookspath=[],
     hooksconfig={},
@@ -27,25 +47,32 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
+
 pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
-    a.binaries,
-    a.datas,
-    [],
-    name='Field Operations Toolkit',  # Set the official application name
+    exclude_binaries=True,
+    name='Field Operations Toolkit',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    upx_exclude=[],
-    runtime_tmpdir=None,
-    console=False,                   # Keeps the ugly command prompt hidden behind your GUI
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+)
+
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='Field Operations Toolkit',
 )

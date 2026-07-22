@@ -2,15 +2,18 @@
 
 import os
 import sys
+from pathlib import Path
 
-# Uses the current working directory to completely bypass PyInstaller sandbox restrictions
-SPEC_DIR = os.getcwd()
+SPEC_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = SPEC_DIR   # the spec is in the project root
 
 a = Analysis(
-    ['app/main_launcher.py'],  # Target your true UI hub launcher entry point
-    pathex=[SPEC_DIR],
+    ['app/main_launcher.py'],         # entry point
+    pathex=[PROJECT_ROOT],
     binaries=[],
-    datas=[],
+    datas=[
+        ('app/assets/*', 'app/assets'),    # icon(s) and any other resources
+    ],
     hiddenimports=[
         'customtkinter',
         'pandas',
@@ -19,9 +22,22 @@ a = Analysis(
         'tkinter',
         'tkinter.filedialog',
         'tkinter.messagebox',
-        'organizer',            
-        'common',               
-        'separator'             
+        # Packages – PyInstaller will crawl them if they contain __init__.py
+        'organizer',
+        'common',
+        'separator',
+        # Explicit app.* modules (not auto‑detected due to dynamic loading)
+        'app.excel_handler',
+        'app.config',
+        'app.indexer',
+        'app.matcher',
+        'app.worker',
+        'app.profile_manager',
+        'app.version',
+        'app.updater',
+        'app.report',
+        'app.organizer',               # the file‑ops engine used by Worker
+        'app.compare',                 # if you later add the Compare tool
     ],
     hookspath=[],
     hooksconfig={},
@@ -30,27 +46,28 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
+
 pyz = PYZ(a.pure)
 
 exe = EXE(
     pyz,
     a.scripts,
-    exclude_binaries=True,           # FIXED: Exclude binaries from the exe to generate a folder structure
-    name='Field Operations Toolkit',  
+    exclude_binaries=True,
+    name='Field Operations Toolkit',
     debug=False,
-    bootloader_ignore_signals=False,
-    strip=False,
-    upx=True,
-    console=False,                   # Hides the command window behind your GUI
-    disable_windowed_traceback=False,
-    argv_emulation=False,
-    target_arch=None,
-    codesign_identity=None,
-    entitlements_file=None,
+    ...
 )
 
-# FIXED: Added the COLLECT block. This explicitly tells PyInstaller 
-# to group all DLLs, Python libraries, and files into a folder named "Field Operations Toolkit"
+coll = COLLECT(
+    exe,
+    a.binaries,
+    a.datas,
+    strip=False,
+    upx=True,
+    upx_exclude=[],
+    name='Field Operations Toolkit',
+)
+
 coll = COLLECT(
     exe,
     a.binaries,

@@ -1,6 +1,6 @@
 from pathlib import Path
 from collections import defaultdict
-from app.config import FILE_TYPES
+from app.common.config import FILE_TYPES
 
 
 class FileIndexer:

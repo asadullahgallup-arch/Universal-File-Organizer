@@ -3,18 +3,18 @@ from tkinter import filedialog, messagebox
 import tkinter as tk
 import os
 import sys
-from app.excel_handler import ExcelHandler
-from app.config import FILE_TYPES, MATCHING_MODES, DUPLICATE_MODES
-from app.indexer import FileIndexer
-from app.matcher import FileMatcher
-from app.worker import Worker
+from app.common.excel_handler import ExcelHandler
+from app.common.config import FILE_TYPES, MATCHING_MODES, DUPLICATE_MODES
+from app.organizer.indexer import FileIndexer
+from app.organizer.matcher import FileMatcher
+from app.organizer.worker import Worker
 import threading
 import queue
 import webbrowser
-from app.profile_manager import ProfileManager
-from app.version import APP_NAME, APP_FULL_VERSION
-from app.version import APP_VERSION
-from app.updater import UpdateChecker
+from app.common.profile_manager import ProfileManager
+from app.common.version import APP_NAME, APP_FULL_VERSION
+from app.common.version import APP_VERSION
+from app.common.updater import UpdateChecker
 
 
 class UniversalFileOrganizer(ctk.CTkFrame):
