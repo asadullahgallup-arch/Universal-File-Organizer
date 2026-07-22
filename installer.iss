@@ -16,8 +16,8 @@ Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 PrivilegesRequired=lowest
-UninstallDisplayIcon={app}\app\assets\app.ico
-SetupIconFile=app\assets\app.ico
+UninstallDisplayIcon={app}\assets\app.ico
+SetupIconFile=assets\app.ico
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
